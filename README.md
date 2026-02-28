@@ -154,9 +154,3 @@ Boas práticas de desenvolvimento
 - Use seeders e factories para dados de desenvolvimento e testes.
 - Rode os testes com `php artisan test` ou `vendor/bin/phpunit`.
 - Gere documentação de endpoints ou use ferramentas como OpenAPI/Swagger quando o projeto crescer.
-
-Repositório GitHub
------------------
-
-- Link do projeto Laravel: `<link-do-repositorio>`
-
