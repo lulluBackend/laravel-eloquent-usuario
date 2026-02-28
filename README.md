@@ -17,9 +17,9 @@ Projeto simples de API REST construída com PHP e Laravel. Este repositório dem
 Principais tecnologias
 ---------------------
 
-- PHP (8.0+ recomendado)
-- Laravel (framework)
-- Eloquent ORM
+- PHP (8.2 recomendado)
+- Laravel 12.x
+- Eloquent ORM 12.x
 - MySQL / MariaDB (configurável via `.env`)
 - Composer
 
@@ -36,9 +36,16 @@ Estrutura do projeto (resumo)
 Pré-requisitos
 --------------
 
-- PHP 8.0+ instalado
+- PHP 8.2+ instalado
 - Composer
 - Um servidor MySQL/MariaDB acessível
+
+Dependências
+------------
+
+- Laravel 12.x
+- Eloquent ORM 12.x
+- Composer packages descritos no `composer.json`
 
 Instalação
 ----------
@@ -103,6 +110,12 @@ php artisan serve --host=127.0.0.1 --port=8000
 
 Ou use sua stack preferida (Valet, Sail, Docker, etc.). A API ficará acessível em `http://127.0.0.1:8000` por padrão.
 
+Versão da linguagem e ORM
+------------------------
+
+- Versão da linguagem: PHP 8.2
+- Versão do ORM: Eloquent ORM 12.x
+
 Rotas REST
 ----------
 
@@ -130,7 +143,7 @@ Criar usuário (exemplo JSON):
 ```bash
 curl -X POST http://127.0.0.1:8000/api/usuario \
 	-H "Content-Type: application/json" \
-	-d '{"name":"João","email":"joao@example.com","password":"senha123","profile":{"bio":"Dev"}}'
+	-d '{"name":"João","email":"joao@example.com","password":"senha123","perfil_nome":"Administrador"}'
 ```
 
 Boas práticas de desenvolvimento
@@ -141,3 +154,9 @@ Boas práticas de desenvolvimento
 - Use seeders e factories para dados de desenvolvimento e testes.
 - Rode os testes com `php artisan test` ou `vendor/bin/phpunit`.
 - Gere documentação de endpoints ou use ferramentas como OpenAPI/Swagger quando o projeto crescer.
+
+Repositório GitHub
+-----------------
+
+- Link do projeto Laravel: `<link-do-repositorio>`
+
