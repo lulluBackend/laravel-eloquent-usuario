@@ -7,53 +7,137 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# API Laravel (PHP + Eloquent)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Descrição
+-------
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Projeto simples de API REST construída com PHP e Laravel. Este repositório demonstra um backend leve usando Eloquent ORM, com modelos básicos como `User` e `Profile` (perfil). O objetivo é servir como exemplo de estrutura, configuração e rotas REST para operações básicas de CRUD.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Principais tecnologias
+---------------------
 
-## Learning Laravel
+- PHP (8.0+ recomendado)
+- Laravel (framework)
+- Eloquent ORM
+- MySQL / MariaDB (configurável via `.env`)
+- Composer
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Estrutura do projeto (resumo)
+-----------------------------
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- `routes/api.php` - rotas da API
+- `app/Models/User.php` - modelo `User`
+- `app/Models/Profile.php` - modelo `Profile` (relacionado a `User`)
+- `database/migrations/` - migrations para criar tabelas
+- `database/seeders/` - seeders e factories (opcional)
+- `.env` - variáveis de ambiente (credenciais e URL do banco)
 
-## Laravel Sponsors
+Pré-requisitos
+--------------
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- PHP 8.0+ instalado
+- Composer
+- Um servidor MySQL/MariaDB acessível
 
-### Premium Partners
+Instalação
+----------
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+1. Clone o repositório:
 
-## Contributing
+```bash
+git clone <url-do-repo>
+cd api
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. Instale dependências PHP via Composer:
 
-## Code of Conduct
+```bash
+composer install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. Copie o `.env` de exemplo e gere a chave da aplicação:
 
-## Security Vulnerabilities
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Configuração (`.env`)
+--------------------
 
-## License
+Edite o arquivo `.env` na raiz do projeto e configure as variáveis de conexão com o banco de dados. Exemplo para MySQL:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=db_api_2026
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
+```
+
+Migrations e seeders
+--------------------
+
+Após configurar o `.env`, execute as migrations para criar as tabelas:
+
+```bash
+php artisan migrate
+```
+
+Se quiser recriar o banco e popular com seeders (quando houver):
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+Executando a aplicação
+----------------------
+
+Para rodar o servidor de desenvolvimento:
+
+```bash
+php artisan serve --host=127.0.0.1 --port=8000
+```
+
+Ou use sua stack preferida (Valet, Sail, Docker, etc.). A API ficará acessível em `http://127.0.0.1:8000` por padrão.
+
+Rotas REST
+----------
+
+A API expõe endpoints para gerenciamento de usuário e perfil. As rotas típicas estão em `routes/api.php`.
+
+| Método | URL                 | Descrição                           |
+| ------ | ------------------- | ----------------------------------- |
+| POST   | `/api/usuario`      | Criar usuário + perfil              |
+| GET    | `/api/usuario`      | Listar todos usuários com perfil    |
+| GET    | `/api/usuario/{id}` | Listar 1 usuário pelo ID com perfil |
+| PUT    | `/api/usuario/{id}` | Atualizar usuário                   |
+| DELETE | `/api/usuario/{id}` | Deletar usuário                     |
+
+Exemplos rápidos / requests cURL
+-------------------------------
+
+GET todos usuários:
+
+```bash
+curl -X GET http://127.0.0.1:8000/api/usuario
+```
+
+Criar usuário (exemplo JSON):
+
+```bash
+curl -X POST http://127.0.0.1:8000/api/usuario \
+	-H "Content-Type: application/json" \
+	-d '{"name":"João","email":"joao@example.com","password":"senha123","profile":{"bio":"Dev"}}'
+```
+
+Boas práticas de desenvolvimento
+-------------------------------
+
+- Mantenha o `.env` fora do controle de versão (verifique `.gitignore`).
+- Use migrations para versionar mudanças no banco (`php artisan migrate`).
+- Use seeders e factories para dados de desenvolvimento e testes.
+- Rode os testes com `php artisan test` ou `vendor/bin/phpunit`.
+- Gere documentação de endpoints ou use ferramentas como OpenAPI/Swagger quando o projeto crescer.
